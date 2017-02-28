@@ -1,5 +1,6 @@
 package com.dowob.testvideovolume;
 
+import android.app.AlarmManager;
 import android.content.Context;
 import android.graphics.Paint;
 import android.media.AudioAttributes;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.VideoView;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mPlayButton;
     private Button mPlayAlarmAndVideoButton;
+    private Button mPrintSystemVolumeButton;
     private VideoView mVideoView;
 
     @Override
@@ -41,11 +44,32 @@ public class MainActivity extends AppCompatActivity {
                 playAlarm();
             }
         });
+        mPrintSystemVolumeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                printSystemVolume();
+            }
+        });
+    }
+
+    private void printSystemVolume() {
+        AudioManager am = (AudioManager) getSystemService(AUDIO_SERVICE);
+        int music = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        int alarm = am.getStreamVolume(AudioManager.STREAM_ALARM);
+        int ring = am.getStreamVolume(AudioManager.STREAM_RING);
+        String s;
+        s = String.format("Music: %d", music);
+        Log.d("MainActivity", s);
+        s = String.format("alarm: %d", alarm);
+        Log.d("MainActivity", s);
+        s = String.format("ring: %d", ring);
+        Log.d("MainActivity", s);
     }
 
     private void findViews() {
         mPlayButton = (Button) findViewById(R.id.button_1);
         mPlayAlarmAndVideoButton = (Button) findViewById(R.id.button_2);
+        mPrintSystemVolumeButton = (Button)  findViewById(R.id.button_3);
         mVideoView = (VideoView) findViewById(R.id.videoView_1);
     }
 
