@@ -19,6 +19,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/button_2"
+        android:text="play alarm and video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <VideoView
         android:id="@+id/videoView_1"
         android:layout_width="match_parent"
